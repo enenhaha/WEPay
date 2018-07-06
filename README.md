@@ -1,2 +1,2 @@
-# WEPay
-# WEPay
+# WXPay
+邮箱：893187399@qq.com 有问题可以发送邮箱  
