@@ -1,0 +1,66 @@
+.jsapi {
+    width: 20%;
+    height: 200px;
+    display: block;
+    text-align: center;
+    background: #ffd1d1;
+    text-decoration: none;
+    color: #d017f2;
+    float: left;
+}
+
+.jsapi span {
+    line-height: 200px;
+    font-size: 25px;
+}
+
+.qrcode {
+    width: 20%;
+    height: 200px;
+    display: block;
+    text-align: center;
+    background: #eaa424;
+    text-decoration: none;
+    float: left;
+    color: #ff1515;
+}
+
+.qrcode span {
+    line-height: 200px;
+    font-size: 25px;
+}
+
+.refund {
+    width: 40%;
+    height: 200px;
+    display: block;
+    text-align: center;
+    background: #da077c;
+    text-decoration: none;
+    float: left;
+    color: #0014ff;
+    font-size: 19px;
+}
+
+.refund p {
+    margin-top: 72px;
+}
+
+.refund p input {
+    display: block;
+    margin: auto;
+    width: 88%;
+    height: 32px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.refund p a {
+    display: block;
+    margin-top: 13px;
+    text-decoration: none;
+    font-size: 22px;
+}
+body>p{
+    margin: 0;
+}

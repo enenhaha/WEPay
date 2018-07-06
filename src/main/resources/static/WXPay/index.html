@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WXPay</title>
+    <link rel="stylesheet" href="/WXPay/css/style.css">
+    <script src="/WXPay/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<a href="##" onclick="jsapi()" class="jsapi"><span>Jsapi支付</span></a>
+<a href="##" onclick="qrcode()" class="qrcode"><span>扫码支付</span></a>
+<div class="refund">
+    <p>
+        <input type="text" placeholder="请输入你的商户订单号或者微信支付单号(主要看你后台的代码是用商户订单退款还是微信订单退款)" id="refund">
+        <a href="##" onclick="refund()">退款</a>
+    </p>
+</div>
+<div class="qrcode">
+    <p>二维码</p>
+    <div>
+
+    </div>
+</div>
+<p>Jsapi支付需要手机微信打开。扫码支付，出现二维码后可长按识别</p>
+
+<script src="/WXPay/js/qrcode.min.js"></script>
+<script src="/WXPay/js/qcloud_util.js"></script>
+
+
+<script>
+    //产生随机数函数
+    // function RndNum(n) {
+    //     var rnd = "";
+    //     for (var i = 0; i < n; i++)
+    //         rnd += Math.floor(Math.random() * 10);
+    //     return rnd;
+    // }
+    var domain = "http://qijimianliu.iok.la";
+    jsapi = function () {
+        var url = domain+"/WXPay/jsapi.html";
+        var appid = "****************";
+        url = encodeURIComponent(url);
+        window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri=" + url + "&response_type=code&scope=snsapi_userinfo&state=shzz_portal_push#wechat_redirect";
+    }
+    refund = function () {
+        var orderNo = document.querySelector("#refund").value;
+        if (orderNo.trim() == '') {
+            alert("请输入退款订单号");
+            return;
+        }
+        $.ajax({
+            url: domain+"/wxapi/refund",//调取后端接口
+            type: "get",
+            data: {
+                orderNo: orderNo
+            },
+            dataType: "json",
+            success: function (r) {
+                alert(r.msg)
+            },
+            error: function (r) {
+                alert(JSON.stringify(r));
+            }
+        })
+    }
+    qrcode = function () {
+        var orderNo = new Date().getTime();
+        $.ajax({
+            url: domain+"/wxapi/qrcode",//调取后端接口
+            type: "get",
+            data: {
+                orderNo: orderNo
+            },
+            dataType: "json",
+            success: function (r) {
+                document.querySelector(".qrcode div").innerHTML = '';
+                var qrcode = new QRCode(document.querySelector(".qrcode div"), {
+                    text: r.data.code_url,
+                    width: 135,
+                    height: 135,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+
+            },
+            error: function (r) {
+                alert(JSON.stringify(r));
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
